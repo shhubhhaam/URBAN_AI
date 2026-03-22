@@ -126,7 +126,7 @@ Data collection is done using JavaScript scripts in GEE Code Editor.
 GEE Code Editor URL:
 
 - https://code.earthengine.google.com/
-  
+
 ### Scripts used
 
 - `JS_Scripts_for_data_gathering/WHOLE_AHMEDABAD.js`
@@ -191,6 +191,20 @@ python .\datasets\load_unified_data.py
   - Context-aware insights from historical trends
 - Trends:
   - Year-over-year trend analysis by area
+
+## UI Preview
+
+### Ask URBAN-AI
+
+![Ask URBAN-AI screen](Screenshots/s1.png)
+
+### Navigation and Controls
+
+![Sidebar controls screen](Screenshots/s2.png)
+
+### Critical Situation Map
+
+![Critical situation map screen](Screenshots/s3.png)
 
 ## Troubleshooting
 
