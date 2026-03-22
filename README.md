@@ -123,6 +123,10 @@ SELECT * FROM areas_lst LIMIT 5;
 
 Data collection is done using JavaScript scripts in GEE Code Editor.
 
+GEE Code Editor URL:
+
+- https://code.earthengine.google.com/
+  
 ### Scripts used
 
 - `JS_Scripts_for_data_gathering/WHOLE_AHMEDABAD.js`
