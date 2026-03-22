@@ -136,7 +136,7 @@ with st.sidebar:
     st.divider()
     layer = st.radio(
         "📋 Analysis Layer",
-        ["Current Situation (2 years)", "Future Planning (2018–now)"]
+        ["Current Situation", "Future Planning"]
     )
 
     # Page selector
