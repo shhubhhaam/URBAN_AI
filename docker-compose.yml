@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: ahmedabad_urban_db
+    environment:
+      POSTGRES_USER: urban_admin
+      POSTGRES_PASSWORD: ahmedabad123
+      POSTGRES_DB: ahmedabad_urban
+      POSTGRES_INITDB_ARGS: "-c shared_preload_libraries=pg_stat_statements"
+    ports:
+      - "5432:5432"
+    volumes:
+      # Persistent data storage - survives container restart
+      - pgdata:/var/lib/postgresql/data
+      # Backup directory for export
+      - ./pgbackups:/backups
+      # Initialization SQL script - runs on first container start
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - ahmedabad_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U urban_admin -d ahmedabad_urban"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin_ahmedabad
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@urban.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+      PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: "False"
+      PGADMIN_CONFIG_COOKIE_SAMESITE: "Lax"
+    ports:
+      - "5050:80"
+    volumes:
+      # Persistent pgAdmin configuration
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - ahmedabad_network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  # PostgreSQL data volume - persistent storage
+  pgdata:
+    driver: local
+  # PgAdmin data volume
+  pgadmin_data:
+    driver: local
+
+networks:
+  ahmedabad_network:
+    driver: bridge
